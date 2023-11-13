@@ -1,0 +1,30 @@
+apiVersion: services.cloud.sap.com/v1
+kind: ServiceInstance
+metadata:
+  name: cap-bookstore-xsuaa-instance
+spec:
+  serviceOfferingName: xsuaa
+  servicePlanName: application
+  parameters:
+    xsappname: cap-bookstore-kyma
+    tenant-mode: dedicated
+    scopes:
+      - name: $XSAPPNAME.User
+        description: user role
+    role-templates:
+      - name: User
+        description: cap-bookstore-kyma
+        scope-references:
+          - $XSAPPNAME.User
+    role-collections:
+      - name: cap-bookstore-kyma-rc
+        description: Kyma CAP Sample
+        role-template-references:
+          - $XSAPPNAME.User
+---
+apiVersion: services.cloud.sap.com/v1
+kind: ServiceBinding
+metadata:
+  name: cap-bookstore-xsuaa-binding
+spec:
+  serviceInstanceName: cap-bookstore-xsuaa-instance

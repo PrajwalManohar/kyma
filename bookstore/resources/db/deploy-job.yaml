@@ -1,0 +1,23 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: bookstore-db-deployer
+  labels:
+    app: bookstore-db-deployer
+spec:
+  ttlSecondsAfterFinished: 10
+  template:
+    metadata:
+      labels:
+        app: bookstore-db-deployer
+      annotations:
+        sidecar.istio.io/inject: "false"
+    spec:
+      restartPolicy: OnFailure
+      containers:
+        - image: prajwalmanohar/bookstore-db-deployer:latest
+          imagePullPolicy: Always
+          name: cap-db-deployer
+          envFrom:
+          - secretRef:
+              name: orders-vcap-services

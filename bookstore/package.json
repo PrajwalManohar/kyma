@@ -10,9 +10,74 @@
     "express": "^4"
   },
   "devDependencies": {
-    "sqlite3": "^5.0.4"
+    "@sap/ux-specification": "^1.90.9",
+    "sqlite3": "^5.0.2"
   },
   "scripts": {
-    "start": "cds run"
+    "start": "cds run",
+    "build": "cds build"
+  },
+  "build": {
+    "target": "gen",
+    "tasks": [
+      {
+        "for": "hana",
+        "src": "db",
+        "options": {
+          "model": [
+            "db",
+            "srv"
+          ]
+        }
+      },
+      {
+        "for": "node-cf",
+        "src": "srv",
+        "options": {
+          "model": [
+            "db",
+            "srv"
+          ]
+        }
+      }
+    ]
+  },
+  "eslintConfig": {
+    "extends": "eslint:recommended",
+    "env": {
+      "es2020": true,
+      "node": true,
+      "jest": true,
+      "mocha": true
+    },
+    "globals": {
+      "SELECT": true,
+      "INSERT": true,
+      "UPDATE": true,
+      "DELETE": true,
+      "CREATE": true,
+      "DROP": true,
+      "CDL": true,
+      "CQL": true,
+      "CXL": true,
+      "cds": true
+    },
+    "rules": {
+      "no-console": "off",
+      "require-atomic-updates": "off"
+    }
+  },
+  "cds": {
+    "requires": {
+      "db": {
+        "kind": "sql"
+      },
+      "uaa": {
+        "kind": "xsuaa"
+      }
+    },
+    "hana": {
+      "deploy-format": "hdbtable"
+    }
   }
 }
