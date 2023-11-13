@@ -5,12 +5,12 @@
 replicaCount: 1
 
 image:
-  repository: prajwalmanohar/bookstore-db-deployer
+  repository: prajwalmanohar/cicd-bookstore-db-deployer
   pullPolicy: Always
   # Overrides the image tag whose default is the chart appVersion.
   tag: "latest"
 
 secretRefName: orders-vcap-services
 
-nameOverride: "bookstore-db-deployer"
-fullnameOverride: "bookstore-db-deployer"
+nameOverride: "cicd-bookstore-db-deployer"
+fullnameOverride: "cicd-bookstore-db-deployer"
