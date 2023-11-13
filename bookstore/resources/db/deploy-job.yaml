@@ -1,21 +1,21 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: bookstore-db-deployer
+  name: cicd-bookstore-db-deployer
   labels:
-    app: bookstore-db-deployer
+    app: cicd-bookstore-db-deployer
 spec:
   ttlSecondsAfterFinished: 10
   template:
     metadata:
       labels:
-        app: bookstore-db-deployer
+        app: cicd-bookstore-db-deployer
       annotations:
         sidecar.istio.io/inject: "false"
     spec:
       restartPolicy: OnFailure
       containers:
-        - image: prajwalmanohar/bookstore-db-deployer:latest
+        - image: prajwalmanohar/cicd-bookstore-db-deployer:latest
           imagePullPolicy: Always
           name: cap-db-deployer
           envFrom:
