@@ -12,5 +12,5 @@ image:
 
 secretRefName: orders-vcap-services
 
-nameOverride: "bookstore-db-deployer"
-fullnameOverride: "bookstore-db-deployer"
+nameOverride: "bookstoredemo-db-deployer"
+fullnameOverride: "bookstoredemo-db-deployer"
