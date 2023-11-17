@@ -1,25 +1,19 @@
-# Use the capui5tools for the first stage build
-FROM prajwalmanohar/bscapui5tools as capbuild
-#Base version
-ENV VERSION 1.0.0
-# Create app directory, in which the CAP service is built
-WORKDIR /bookshop
-# build app
-RUN ["cds", "build"]
+FROM node:12.18.1
 
-# Use the Node version that matches the version you have installed locally
-FROM node:16-slim
-# Set to production to connect to HANA Cloud
+# Create app directory
 ENV NODE_ENV=production
-# Create app directory, in which the CAP service is built
-WORKDIR /gen/srv
-# Install app dependencies
-RUN npm install
-# expose the port which is opened by CDS by default
-EXPOSE 4004
-# Run as node user
-USER node
-# Run the cap-service
-CMD [ "npm", "start" ]
+WORKDIR /usr/src/app
 
-# ------------
+# Install app dependencies
+# A wildcard is used to ensure both package.json AND package-lock.json are copied
+# where available (npm@5+)
+COPY /package*.json ./
+
+RUN npm install
+
+# Bundle app source
+COPY /. .
+
+EXPOSE 4004
+
+CMD [ "npm", "start" ]
